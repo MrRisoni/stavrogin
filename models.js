@@ -1,15 +1,10 @@
 const Sequelize = require('sequelize');
-//const dotenv = require('dotenv');
-//dotenv.config();
 
-console.log('process.env.KANBAN_DB');
-console.log(process.env.DBNAME);
+const dbname = process.env.DB_NAME || 'stavrogindb';
 
-const dbname = process.env.DBNAME || 'stavrogindb';
-
-const user = process.env.DBUSER || 'root';
-const passwd = process.env.DBPASSWD || '';
-const host = process.env.DBHOST || '';
+const user = process.env.DB_USER || 'root';
+const passwd = process.env.DB_PASS || '';
+const host = process.env.DB_HOST || '';
 
 const sequelize = new Sequelize(dbname, user, passwd, {
     host: host,
