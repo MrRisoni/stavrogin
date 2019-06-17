@@ -1,0 +1,18 @@
+{
+  "name": "JS_Projects",
+  "version": "1.0.0",
+  "description": "Foreign Language School",
+  "main": "api.js",
+  "repository": "https://github.com/MrRisoni/pushkin.git",
+  "author": "Vagelis Katanias",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "sequelize": "^5.8.9"
+  }
+}
