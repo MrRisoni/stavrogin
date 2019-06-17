@@ -23,7 +23,7 @@ module.exports =
                     },
                     }
                 ).then(results => {
-                    resolve({errMsg: '', data: results});
+                    resolve(results);
                 }).catch(err => {
                     reject({errMsg: err, data: []});
                 })

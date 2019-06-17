@@ -49,7 +49,7 @@ const langsMdl = sequelize.define('languages', {
 
 
 const wordsMdl = sequelize.define('words', {
-        id: {
+        wordId: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'wor_id',
             autoIncrement: true,
