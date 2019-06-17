@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const Sequelize = require('sequelize');
 
-const DiplomasController = require('./controllers/DiplomasController');
+const WordController = require('./controllers/WordController');
 
 
 app.use(bodyParser.json());
@@ -14,12 +14,12 @@ app.use(cors());
 
 const dbModels = require('./models');
 
-const diplCtrl = new DiplomasController(dbModels);
+const wCtrl = new WordController(dbModels);
 
 
-app.get('/api/diplomas', (req, res) => {
+app.get('/api/words/:langId', (req, res) => {
 
-    diplCtrl.getDiplomas().then(data => {
+    wCtrl.getWords(req.params.langId).then(data => {
         res.send(data);
 
     }).catch(err => {
