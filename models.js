@@ -90,7 +90,120 @@ const casesMdl = sequelize.define('cases', {
 );
 
 
+
+const tenseMdl = sequelize.define('tenses', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'ten_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'ten_name'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const aspectMdl = sequelize.define('aspects', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'asp_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'asp_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+const voiceMdl = sequelize.define('voices', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'voi_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'voi_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const pronounMdl = sequelize.define('pronouns', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'pri_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'pri_word'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const moodMdl = sequelize.define('moods', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'moo_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'moo_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
 const nounDeclensionMdl = sequelize.define('ndeclensions', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'ndc_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        form: {
+            type: Sequelize.CHAR,
+            field: 'ndc_form'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const verbDeclensionMdl = sequelize.define('ndeclensions', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'ndc_id',
@@ -116,7 +229,13 @@ module.exports = {
     langsMdl,
     wordsMdl,
     casesMdl,
-    nounDeclensionMdl
+    nounDeclensionMdl,
+    tenseMdl,
+    voiceMdl,
+    aspectMdl,
+    pronounMdl,
+    moodMdl,
+    verbDeclensionMdl
 };
 
 
