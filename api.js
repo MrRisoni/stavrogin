@@ -8,6 +8,7 @@ const Sequelize = require('sequelize');
 
 const WordController = require('./controllers/WordController');
 const NounsController = require('./controllers/NounsController');
+const VerbsController = require('./controllers/VerbsController');
 
 
 app.use(bodyParser.json());
@@ -17,6 +18,7 @@ const dbModels = require('./models');
 
 const wCtrl = new WordController(dbModels);
 const nCtrl = new NounsController(dbModels);
+const vCtrl = new VerbsController(dbModels);
 
 
 app.get('/api/words/:langId', (req, res) => {
@@ -33,6 +35,31 @@ app.get('/api/ndecl', (req, res) => {
 
     nCtrl.getDeclensions().then(data => {
         res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
+app.get('/api/vdecl', (req, res) => {
+
+    vCtrl.getDeclensions().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
+app.get('/api/verbal', (req, res) => {
+
+    vCtrl.getAllVerbalData().then(data => {
+        res.send({tenses: data[0],
+            aspects: data[1],
+            voices: data[2],
+            pronouns: data[3]});
 
     }).catch(err => {
         console.log(err);

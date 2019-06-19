@@ -203,16 +203,16 @@ const nounDeclensionMdl = sequelize.define('ndeclensions', {
 );
 
 
-const verbDeclensionMdl = sequelize.define('ndeclensions', {
+const verbDeclensionMdl = sequelize.define('vdeclensions', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
-            field: 'ndc_id',
+            field: 'vdc_id',
             autoIncrement: true,
             primaryKey: true,
         },
         form: {
             type: Sequelize.CHAR,
-            field: 'ndc_form'
+            field: 'vdc_form'
         }
     },
     {
@@ -222,6 +222,12 @@ const verbDeclensionMdl = sequelize.define('ndeclensions', {
 );
 
 nounDeclensionMdl.belongsTo(casesMdl, {foreignKey: 'ndc_case_id', as: 'caseObj'});
+
+
+verbDeclensionMdl.belongsTo(tenseMdl, {foreignKey: 'vdc_tense_id', as: 'tense'});
+verbDeclensionMdl.belongsTo(aspectMdl, {foreignKey: 'vdc_aspect_id', as: 'aspect'});
+verbDeclensionMdl.belongsTo(voiceMdl, {foreignKey: 'vdc_voice_id', as: 'voice'});
+verbDeclensionMdl.belongsTo(pronounMdl, {foreignKey: 'vdc_person_id', as: 'person'});
 
 
 module.exports = {
