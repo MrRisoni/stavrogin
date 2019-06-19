@@ -7,6 +7,7 @@ const cors = require('cors');
 const Sequelize = require('sequelize');
 
 const WordController = require('./controllers/WordController');
+const NounsController = require('./controllers/NounsController');
 
 
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.use(cors());
 const dbModels = require('./models');
 
 const wCtrl = new WordController(dbModels);
+const nCtrl = new NounsController(dbModels);
 
 
 app.get('/api/words/:langId', (req, res) => {
@@ -27,7 +29,15 @@ app.get('/api/words/:langId', (req, res) => {
     });
 });
 
+app.get('/api/ndecl', (req, res) => {
 
+    nCtrl.getDeclensions().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
 
 
 http.listen(port, (req, res) => {

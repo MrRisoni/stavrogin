@@ -71,10 +71,52 @@ const wordsMdl = sequelize.define('words', {
 );
 
 
+const casesMdl = sequelize.define('cases', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'cas_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'cas_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const nounDeclensionMdl = sequelize.define('ndeclensions', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'ndc_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        form: {
+            type: Sequelize.CHAR,
+            field: 'ndc_form'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+nounDeclensionMdl.belongsTo(casesMdl, {foreignKey: 'ndc_case_id', as: 'caseObj'});
+
+
 module.exports = {
     dbObj: sequelize,
     langsMdl,
-    wordsMdl
+    wordsMdl,
+    casesMdl,
+    nounDeclensionMdl
 };
 
 
