@@ -48,6 +48,26 @@ const langsMdl = sequelize.define('languages', {
 );
 
 
+const posMdl = sequelize.define('pos', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'pos_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'pos_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
 const wordsMdl = sequelize.define('words', {
         wordId: {
             type: Sequelize.INTEGER.UNSIGNED,
@@ -232,6 +252,7 @@ verbDeclensionMdl.belongsTo(pronounMdl, {foreignKey: 'vdc_person_id', as: 'perso
 
 module.exports = {
     dbObj: sequelize,
+    posMdl,
     langsMdl,
     wordsMdl,
     casesMdl,

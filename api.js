@@ -67,6 +67,19 @@ app.get('/api/verbal', (req, res) => {
 });
 
 
+app.get('/api/new/word_options', (req, res) => {
+
+    wCtrl.getPosLangs().then(data => {
+        res.send({pos: data[0],
+            langs: data[1]});
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
+
 http.listen(port, (req, res) => {
     console.log('Server listening on port number', port);
 });

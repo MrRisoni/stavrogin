@@ -11,7 +11,37 @@ module.exports =
 
         }
 
+        getPosLangs()
+        {
+            return Promise.all([this.getPos(), this.getLangs()]);
+        }
 
+        getPos()
+        {
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+                self.models.posMdl.findAll().then(results => {
+                    resolve(results);
+                }).catch(err => {
+                    reject({errMsg: err, data: []});
+                })
+            });
+        }
+
+
+        getLangs()
+        {
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+                self.models.langsMdl.findAll().then(results => {
+                    resolve(results);
+                }).catch(err => {
+                    reject({errMsg: err, data: []});
+                })
+            });
+        }
 
         getWords(langId) {
             const self = this;
