@@ -91,6 +91,26 @@ const wordsMdl = sequelize.define('words', {
 );
 
 
+const translationsMdl = sequelize.define('translations', {
+        wordId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'tra_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        meaning: {
+            type: Sequelize.CHAR,
+            field: 'tra_meaning'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
 const casesMdl = sequelize.define('cases', {
         id: {
             type: Sequelize.INTEGER.UNSIGNED,
@@ -250,6 +270,9 @@ verbDeclensionMdl.belongsTo(voiceMdl, {foreignKey: 'vdc_voice_id', as: 'voice'})
 verbDeclensionMdl.belongsTo(pronounMdl, {foreignKey: 'vdc_person_id', as: 'person'});
 
 
+wordsMdl.belongsTo(translationsMdl, {foreignKey: 'tra_wordid', as: 'transtl'});
+
+
 module.exports = {
     dbObj: sequelize,
     posMdl,
@@ -262,7 +285,8 @@ module.exports = {
     aspectMdl,
     pronounMdl,
     moodMdl,
-    verbDeclensionMdl
+    verbDeclensionMdl,
+    translationsMdl
 };
 
 

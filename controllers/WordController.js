@@ -16,6 +16,8 @@ module.exports =
             return Promise.all([this.getPos(), this.getLangs()]);
         }
 
+
+
         getPos()
         {
             const self = this;
@@ -52,6 +54,19 @@ module.exports =
                         langId :langId
                     },
                     }
+                ).then(results => {
+                    resolve(results);
+                }).catch(err => {
+                    reject({errMsg: err, data: []});
+                })
+            });
+        }
+
+        getTranstl(langId) {
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+                self.models.translationsMdl.findAll({}
                 ).then(results => {
                     resolve(results);
                 }).catch(err => {

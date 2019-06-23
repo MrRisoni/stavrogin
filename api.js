@@ -31,6 +31,19 @@ app.get('/api/words/:langId', (req, res) => {
     });
 });
 
+
+
+app.get('/api/transtl/:langId', (req, res) => {
+
+    wCtrl.getTranstl().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
 app.get('/api/ndecl', (req, res) => {
 
     nCtrl.getDeclensions().then(data => {
