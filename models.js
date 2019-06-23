@@ -92,9 +92,15 @@ const wordsMdl = sequelize.define('words', {
 
 
 const translationsMdl = sequelize.define('translations', {
-        wordId: {
+        transId: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'tra_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        wordId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'tra_wordid',
             autoIncrement: true,
             primaryKey: true,
         },
