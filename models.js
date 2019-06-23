@@ -270,7 +270,7 @@ verbDeclensionMdl.belongsTo(voiceMdl, {foreignKey: 'vdc_voice_id', as: 'voice'})
 verbDeclensionMdl.belongsTo(pronounMdl, {foreignKey: 'vdc_person_id', as: 'person'});
 
 
-wordsMdl.belongsTo(translationsMdl, {foreignKey: 'tra_wordid', as: 'transtl'});
+//wordsMdl.belongsTo(translationsMdl, {7foreignKey: 'tra_wordid', as: 'transtl'});
 
 
 module.exports = {
