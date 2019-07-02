@@ -93,9 +93,8 @@ app.get('/api/new/word_options', (req, res) => {
 
 app.post('/api/new/word', (req, res) => {
 
-  console.log(req.params);
     console.log(req.body);
-
+    wCtrl.saveWord(req.body);
     res.sendStatus(200);
 });
 

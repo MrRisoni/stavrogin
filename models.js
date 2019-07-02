@@ -79,6 +79,10 @@ const wordsMdl = sequelize.define('words', {
             type: Sequelize.INTEGER,
             field: 'wor_langid'
         },
+        posId: {
+            type: Sequelize.INTEGER,
+            field: 'wor_posid'
+        },
         title: {
             type: Sequelize.CHAR,
             field: 'wor_word'
@@ -101,6 +105,10 @@ const translationsMdl = sequelize.define('translations', {
         wordId: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'tra_wordid'
+        },
+        langId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'tra_langid'
         },
         meaning: {
             type: Sequelize.CHAR,
