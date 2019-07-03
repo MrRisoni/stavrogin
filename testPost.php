@@ -3,7 +3,7 @@
 
 
 $data = array(
-    'foreignText' => 'школа',
+    'foreignText' => 'winter',
     'translationText' => 'σχολείο',
     'pronounceText' => 'schkóla',
     'foreignLang' => 'русский',

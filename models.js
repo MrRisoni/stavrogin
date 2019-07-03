@@ -86,6 +86,14 @@ const wordsMdl = sequelize.define('words', {
         title: {
             type: Sequelize.CHAR,
             field: 'wor_word'
+        },
+        pronounce: {
+            type: Sequelize.CHAR,
+            field: 'wor_pronounce'
+        },
+        added: {
+            type: Sequelize.DATE,
+            field: 'wor_added'
         }
     },
     {

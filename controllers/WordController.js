@@ -126,7 +126,11 @@ module.exports =
 
             // find pos , origin lang, trans lang ,
          this.findBy(obj).then(res  => {
-             self.models.wordsMdl.build({langId:res[0] ,posId: res[2], title:obj.foreignText})
+             self.models.wordsMdl.build({langId:res[0] ,
+                 posId: res[2],
+                 pronounce: obj.pronounceText,
+                 added:new Date(),
+                 title:obj.foreignText})
                  .save().then(saved =>  {
                  //console.log(saved.wordId);
                 // console.log(res[0] + ' ' +  res[1] + ' ' + res[2]);
