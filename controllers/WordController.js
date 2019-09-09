@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize');
+const moment = require('moment');
+
 
 module.exports =
 
@@ -10,7 +12,7 @@ module.exports =
 
         }
 
-
+//       [Op.gte]: moment().subtract(7, 'days').toDate()
         getLangs() {
             const self = this;
             return new Promise((resolve, reject) => {
@@ -48,7 +50,10 @@ module.exports =
 
                 self.models.wordsMdl.findAll({
                         where: {
-                            langId: langId
+                            langId: langId,
+                            due: {
+                                [Sequelize.Op.lte]: moment().toDate()
+                            },
                         },
                         order: [
                             ['due', 'ASC'],
