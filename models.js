@@ -39,6 +39,9 @@ const langsMdl = sequelize.define('languages', {
         title: {
             type: Sequelize.CHAR,
             field: 'lan_title'
+        },foreign: {
+            type: Sequelize.INTEGER,
+            field: 'lan_foreign'
         }
     },
     {

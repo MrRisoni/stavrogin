@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2019 at 07:52 PM
+-- Generation Time: Sep 10, 2019 at 09:41 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.2.7
 
@@ -42,20 +42,9 @@ CREATE TABLE `examples` (
 
 CREATE TABLE `languages` (
   `lan_id` tinyint(3) UNSIGNED NOT NULL,
-  `lan_title` varchar(15) NOT NULL
+  `lan_title` varchar(15) NOT NULL,
+  `lan_foreign` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `languages`
---
-
-INSERT INTO `languages` (`lan_id`, `lan_title`) VALUES
-(6, 'Bokmål'),
-(5, 'Deutsch'),
-(2, 'English'),
-(3, 'Francais'),
-(1, 'Ελληνικά'),
-(4, 'русский');
 
 -- --------------------------------------------------------
 
@@ -69,15 +58,6 @@ CREATE TABLE `translations` (
   `tra_langid` tinyint(3) UNSIGNED NOT NULL,
   `tra_meaning` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `translations`
---
-
-INSERT INTO `translations` (`tra_id`, `tra_wordid`, `tra_langid`, `tra_meaning`) VALUES
-(1, 3, 5, 'Passagier'),
-(2, 4, 1, 'υπερπέραν'),
-(5, 11, 1, 'σχολείο');
 
 -- --------------------------------------------------------
 
@@ -96,17 +76,6 @@ CREATE TABLE `words` (
   `wor_avg_days_due` decimal(5,2) UNSIGNED NOT NULL DEFAULT '0.00',
   `wor_comment` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `words`
---
-
-INSERT INTO `words` (`wor_id`, `wor_langid`, `wor_word`, `wor_pronounce`, `wor_stem`, `wor_added`, `wor_due`, `wor_avg_days_due`, `wor_comment`) VALUES
-(1, 4, 'Я', '', NULL, '2019-09-09', '2019-04-09', '0.00', ''),
-(2, 4, 'любить', '', NULL, '2019-09-09', '2019-09-29', '0.00', ''),
-(3, 4, 'пассажир', '', NULL, '2019-09-09', '2019-09-09', '0.00', ''),
-(4, 5, 'Jenseits', '', NULL, '2019-09-09', '2019-09-09', '0.00', ''),
-(11, 4, 'школа', '', NULL, '2019-09-09', '2011-10-09', '4.00', '');
 
 --
 -- Indexes for dumped tables
@@ -162,13 +131,13 @@ ALTER TABLE `languages`
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `tra_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `tra_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `words`
 --
 ALTER TABLE `words`
-  MODIFY `wor_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `wor_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

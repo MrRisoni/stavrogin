@@ -17,7 +17,11 @@ module.exports =
             const self = this;
             return new Promise((resolve, reject) => {
 
-                self.models.langsMdl.findAll().then(results => {
+                self.models.langsMdl.findAll({
+                    where: {
+                        foreign: 1
+                    }
+                }).then(results => {
                     resolve(results);
                 }).catch(err => {
                     reject({errMsg: err, data: []});
