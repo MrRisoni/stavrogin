@@ -28,6 +28,15 @@ app.get('/api/words/:langId', (req, res) => {
 });
 
 
+app.get('/api/langs', (req, res) => {
+    wCtrl.getLangs().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    })
+})
+
 app.get('/api/wordsdue/:langId', (req, res) => {
 
     wCtrl.getWordsDue(req.params.langId).then(data => {
@@ -42,7 +51,7 @@ app.get('/api/wordsdue/:langId', (req, res) => {
 
 app.get('/api/transtl/:langId', (req, res) => {
 
-    wCtrl.getTranstl().then(data => {
+    wCtrl.getTranstl(req.params.langId).then(data => {
         res.send(data);
 
     }).catch(err => {

@@ -71,7 +71,11 @@ module.exports =
             const self = this;
             return new Promise((resolve, reject) => {
 
-                self.models.translationsMdl.findAll({}
+                self.models.translationsMdl.findAll({
+                        where: {
+                            langId: langId
+                        }
+                    }
                 ).then(results => {
                     resolve(results);
                 }).catch(err => {
