@@ -3,18 +3,14 @@
 
 
 $data = array(
-    'foreignText' => 'winter',
-    'translationText' => 'σχολείο',
-    'pronounceText' => 'schkóla',
-    'foreignLang' => 'русский',
-    'transLang' => 'Ελληνικά',
-    'posText' => 'Noun'
+    'wordId' => '11',
+    'due' => 3.4
 );
 
 $payload = json_encode($data);
 
 // Prepare new cURL resource
-$ch = curl_init('http://localhost:3500/api/new/word');
+$ch = curl_init('http://localhost:3500/api/update_due');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLINFO_HEADER_OUT, true);
 curl_setopt($ch, CURLOPT_POST, true);
@@ -29,5 +25,6 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 // Submit the POST request
 $result = curl_exec($ch);
 
+var_dump($result);
 // Close cURL session handle
 curl_close($ch);

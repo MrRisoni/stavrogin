@@ -84,6 +84,36 @@ module.exports =
         }
 
 
+        updateWord(obj) {
+            const self = this;
+
+            return new Promise((resolve, reject) => {
+
+
+                self.models.wordsMdl.findAll({
+                        where: {
+                            wordId: obj.wordId,
+                        },
+                    }
+                ).then(results => {
+                    const showAgainInDays = Math.ceil(obj.due);
+
+                    const newShowDay = moment().add(showAgainInDays, 'days');
+
+                    const sql = " UPDATE `words` SET `wor_checked` = CURRENT_DATE, `wor_due` = '" + newShowDay.format('YYYY-MM-DD') + "' WHERE wor_id = '" + obj.wordId + "'";
+                    self.models.dbObj.query(sql, {type: Sequelize.QueryTypes.UPDATE})
+                        .then(foo => {
+                            resolve();
+                        }).catch(errSql => {
+                        reject({errMsg: errSql});
+                    });
+
+                }).catch(err => {
+                    reject({errMsg: err});
+                });
+            });
+        }
+
         saveWord(obj) {
 
             const self = this;
@@ -108,12 +138,6 @@ module.exports =
                     })
                         .save();
                 });
-
-
-            })
-
-
+            });
         }
-
-
     }

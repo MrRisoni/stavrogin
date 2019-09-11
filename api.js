@@ -60,7 +60,13 @@ app.get('/api/transtl/:langId', (req, res) => {
 });
 
 
-
+app.post('/api/update_due', (req, res) => {
+    wCtrl.updateWord(req.body).then(rsp => {
+        res.sendStatus(201);
+    }).catch(err => {
+        res.sendStatus(500);
+    })
+});
 
 
 app.post('/api/new/word', (req, res) => {
@@ -73,6 +79,8 @@ app.post('/api/new/word', (req, res) => {
 http.listen(port, (req, res) => {
     console.log('Server listening on port number', port);
 });
+
+
 
 
 module.exports = {
