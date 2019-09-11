@@ -12,8 +12,7 @@ module.exports =
 
         }
 
-//       [Op.gte]: moment().subtract(7, 'days').toDate()
-        getLangs() {
+        getForeignLangs() {
             const self = this;
             return new Promise((resolve, reject) => {
 
@@ -28,6 +27,21 @@ module.exports =
                 })
             });
         }
+
+
+        getAllLangs() {
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+                self.models.langsMdl.findAll({
+                }).then(results => {
+                    resolve(results);
+                }).catch(err => {
+                    reject({errMsg: err, data: []});
+                })
+            });
+        }
+
 
         getAllWords(langId) {
             const self = this;
@@ -115,29 +129,25 @@ module.exports =
         }
 
         saveWord(obj) {
-
             const self = this;
-
-            // find pos , origin lang, trans lang ,
-            this.findBy(obj).then(res => {
-                self.models.wordsMdl.build({
-                    langId: res[0],
-                    posId: res[2],
-                    pronounce: obj.pronounceText,
-                    added: new Date(),
-                    title: obj.foreignText
-                })
-                    .save().then(saved => {
-                    //console.log(saved.wordId);
-                    // console.log(res[0] + ' ' +  res[1] + ' ' + res[2]);
+            console.log(obj);
+            self.models.wordsMdl.build({
+                langId: obj.foreignLangId,
+                wordString: obj.foreign,
+                pronounce: obj.pronounce,
+                stem: obj.stem,
+                comment: obj.comment,
+                added: new Date(),
+                due: new Date(),
+                avgDue: 0
+            })
+                .save().then(saved => {
 
                     self.models.translationsMdl.build({
-                        langId: res[1],
+                        langId: obj.transLangId,
                         wordId: saved.wordId,
-                        meaning: obj.translationText
-                    })
-                        .save();
-                });
+                        meaning: obj.meaning
+                    }).save();
             });
         }
     }

@@ -29,13 +29,22 @@ app.get('/api/words/:langId', (req, res) => {
 
 
 app.get('/api/langs', (req, res) => {
-    wCtrl.getLangs().then(data => {
+    wCtrl.getForeignLangs().then(data => {
         res.send(data);
 
     }).catch(err => {
         console.log(err);
     })
-})
+});
+
+app.get('/api/langsall', (req, res) => {
+    wCtrl.getAllLangs().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    })
+});
 
 app.get('/api/wordsdue/:langId', (req, res) => {
 
@@ -69,9 +78,8 @@ app.post('/api/update_due', (req, res) => {
 });
 
 
-app.post('/api/new/word', (req, res) => {
+app.post('/api/newword', (req, res) => {
 
-    console.log(req.body);
     wCtrl.saveWord(req.body);
     res.sendStatus(200);
 });
