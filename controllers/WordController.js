@@ -89,7 +89,7 @@ module.exports =
             const self = this;
             return new Promise((resolve, reject) => {
 
-                let q = " SELECT T.tra_id AS transId, T.tra_wordid AS wordId, ";
+                let q = " SELECT T.tra_id AS transId, T.tra_wordid AS wordId, W.wor_posid as posId ";
                 q+= " T.tra_meaning AS meaning FROM translations T ";
                 q+= " JOIN words W ON W.wor_id =T.tra_wordid ";
                 q+= " WHERE W.wor_langid = '" + langId +"'";
