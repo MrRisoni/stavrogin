@@ -89,11 +89,23 @@ module.exports =
             const self = this;
             return new Promise((resolve, reject) => {
 
-                self.models.translationsMdl.findAll().then(results => {
+                let q = " SELECT T.tra_id AS transId, T.tra_wordid AS wordId, ";
+                q+= " T.tra_meaning AS meaning FROM translations T ";
+                q+= " JOIN words W ON W.wor_id =T.tra_wordid ";
+                q+= " WHERE W.wor_langid = '" + langId +"'";
+
+
+                /*self.models.translationsMdl.findAll().then(results => {
                     resolve(results);
                 }).catch(err => {
                     reject({errMsg: err, data: []});
-                })
+                })*/
+                self.models.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(foo => {
+                        resolve(foo);
+                    }).catch(errSql => {
+                    reject({errMsg: errSql});
+                });
             });
         }
 
