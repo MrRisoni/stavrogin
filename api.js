@@ -46,6 +46,15 @@ app.get('/api/langsall', (req, res) => {
     })
 });
 
+app.get('/api/pos', (req, res) => {
+    wCtrl.getPOS().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    })
+});
+
 app.get('/api/wordsdue/:langId', (req, res) => {
 
     wCtrl.getWordsDue(req.params.langId).then(data => {

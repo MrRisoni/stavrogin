@@ -50,6 +50,24 @@ const langsMdl = sequelize.define('languages', {
     }
 );
 
+const posMdl = sequelize.define('poses', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'ps_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'ps_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
 
 
 const wordsMdl = sequelize.define('words', {
@@ -135,6 +153,7 @@ module.exports = {
     dbObj: sequelize,
     langsMdl,
     wordsMdl,
+    posMdl,
     translationsMdl
 };
 

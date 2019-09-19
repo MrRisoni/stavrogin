@@ -43,6 +43,20 @@ module.exports =
         }
 
 
+        getPOS() {
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+                self.models.posMdl.findAll({
+                }).then(results => {
+                    resolve(results);
+                }).catch(err => {
+                    reject({errMsg: err, data: []});
+                })
+            });
+        }
+
+
         getAllWords(langId) {
             const self = this;
             return new Promise((resolve, reject) => {
@@ -92,7 +106,7 @@ module.exports =
                 let q = " SELECT T.tra_id AS transId, T.tra_wordid AS wordId, W.wor_posid as posId, ";
                 q+= " T.tra_meaning AS meaning FROM translations T ";
                 q+= " JOIN words W ON W.wor_id =T.tra_wordid ";
-                q+= " WHERE W.wor_langid = '" + langId +"'";
+                q+= " WHERE W.wor_due <= CURRENT_DATE AND W.wor_langid = '" + langId +"'";
 
 
                 /*self.models.translationsMdl.findAll().then(results => {
