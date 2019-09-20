@@ -85,6 +85,10 @@ const wordsMdl = sequelize.define('words', {
             type: Sequelize.INTEGER,
             field: 'wor_posid'
         },
+        timesTested: {
+            type: Sequelize.INTEGER,
+            field: 'wor_times_tested'
+        },
         wordString: {
             type: Sequelize.CHAR,
             field: 'wor_word'
