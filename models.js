@@ -107,7 +107,7 @@ const wordsMdl = sequelize.define('words', {
         },
         added: {
             type: Sequelize.DATE,
-            field: 'wor_due'
+            field: 'wor_added'
         },
         due: {
             type: Sequelize.DATE,
