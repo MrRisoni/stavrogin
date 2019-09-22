@@ -174,6 +174,7 @@ module.exports =
             console.log(obj);
             self.models.wordsMdl.build({
                 langId: obj.foreignLangId,
+                posId:obj.chosenPosId,
                 wordString: obj.foreign,
                 pronounce: obj.pronounce,
                 stem: obj.stem,
