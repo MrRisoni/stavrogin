@@ -99,6 +99,51 @@ module.exports =
             });
         }
 
+        getStatistics()
+        {
+
+            // multi line string in ``
+            const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords , AVG(W.wor_avg_days_due) AS avgDue ,
+            transtlPerLang.traLangData
+            FROM words W
+            JOIN languages L ON L.lan_id = W.wor_langid
+            JOIN (
+                SELECT LG.lan_id ,
+            GROUP_CONCAT(' ',translatedToLangs.langCount) AS traLangData
+            FROM languages LG
+            JOIN
+            (
+                SELECT  L.lan_id AS originalId,
+            CONCAT(L2.lan_title,'-',COUNT(T.tra_id)) AS langCount
+            FROM words W
+            JOIN languages L ON L.lan_id = W.wor_langid
+            JOIN translations T ON T.tra_wordid = W.wor_id
+            JOIN languages L2 ON L2.lan_id = T.tra_langid
+            GROUP BY  T.tra_langid ) AS translatedToLangs
+            ON translatedToLangs.originalId = LG.lan_id
+
+            GROUP BY LG.lan_id ) AS transtlPerLang ON transtlPerLang.lan_id = L.lan_id
+            GROUP BY  W.wor_langid
+            ORDER BY  COUNT(W.wor_id) DESC `;
+
+
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+
+                self.models.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(foo => {
+                        resolve(foo);
+                    }).catch(errSql => {
+                    reject({errMsg: errSql});
+                });
+            });
+
+        }
+
+
+
+
         getTranstl(langId) {
             const self = this;
             return new Promise((resolve, reject) => {
@@ -108,12 +153,6 @@ module.exports =
                 q+= " JOIN words W ON W.wor_id =T.tra_wordid ";
                 q+= " WHERE W.wor_due <= CURRENT_DATE AND W.wor_langid = '" + langId +"'";
 
-
-                /*self.models.translationsMdl.findAll().then(results => {
-                    resolve(results);
-                }).catch(err => {
-                    reject({errMsg: err, data: []});
-                })*/
                 self.models.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
                     .then(foo => {
                         resolve(foo);

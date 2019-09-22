@@ -34,7 +34,7 @@ app.get('/api/langs', (req, res) => {
 
     }).catch(err => {
         console.log(err);
-    })
+    });
 });
 
 app.get('/api/langsall', (req, res) => {
@@ -43,7 +43,7 @@ app.get('/api/langsall', (req, res) => {
 
     }).catch(err => {
         console.log(err);
-    })
+    });
 });
 
 app.get('/api/pos', (req, res) => {
@@ -52,7 +52,7 @@ app.get('/api/pos', (req, res) => {
 
     }).catch(err => {
         console.log(err);
-    })
+    });
 });
 
 app.get('/api/wordsdue/:langId', (req, res) => {
@@ -83,7 +83,7 @@ app.post('/api/update_due', (req, res) => {
         res.sendStatus(201);
     }).catch(err => {
         res.sendStatus(500);
-    })
+    });
 });
 
 
@@ -91,6 +91,14 @@ app.post('/api/newword', (req, res) => {
 
     wCtrl.saveWord(req.body);
     res.sendStatus(200);
+});
+
+app.get('/api/statistics', (req,res) => {
+   wCtrl.getStatistics().then(rsp => {
+       res.send(rsp)
+   }).catch(err => {
+       res.sendStatus(500);
+   });
 });
 
 http.listen(port, (req, res) => {
