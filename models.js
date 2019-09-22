@@ -105,6 +105,10 @@ const wordsMdl = sequelize.define('words', {
             type: Sequelize.CHAR,
             field: 'wor_comment'
         },
+        added: {
+            type: Sequelize.DATE,
+            field: 'wor_due'
+        },
         due: {
             type: Sequelize.DATE,
             field: 'wor_due'
