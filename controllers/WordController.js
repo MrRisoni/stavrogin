@@ -104,9 +104,16 @@ module.exports =
 
             // multi line string in ``
             const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords , AVG(W.wor_avg_days_due) AS avgDue ,
-            transtlPerLang.totalStats
+            transtlPerLang.totalStats ,wordsDue.dueCount
             FROM words W
             JOIN languages L ON L.lan_id = W.wor_langid
+            JOIN (
+                SELECT lan_id as dueLangId, COUNT(W.wor_id) AS dueCount
+                FROM words W
+                JOIN languages L ON L.lan_id = W.wor_langid
+                WHERE W.wor_due <= CURRENT_DATE
+                GROUP BY L.lan_id
+            ) AS wordsDue ON wordsDue.dueLangId = L.lan_id
             JOIN (
             
                 SELECT originalLangId ,
