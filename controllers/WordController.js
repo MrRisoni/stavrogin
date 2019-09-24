@@ -104,25 +104,27 @@ module.exports =
 
             // multi line string in ``
             const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords , AVG(W.wor_avg_days_due) AS avgDue ,
-            transtlPerLang.traLangData
+            transtlPerLang.totalStats
             FROM words W
             JOIN languages L ON L.lan_id = W.wor_langid
             JOIN (
-                SELECT LG.lan_id ,
-            GROUP_CONCAT(' ',translatedToLangs.langCount) AS traLangData
-            FROM languages LG
-            JOIN
-            (
-                SELECT  L.lan_id AS originalId,
-            CONCAT(L2.lan_title,'-',COUNT(T.tra_id)) AS langCount
-            FROM words W
-            JOIN languages L ON L.lan_id = W.wor_langid
-            JOIN translations T ON T.tra_wordid = W.wor_id
-            JOIN languages L2 ON L2.lan_id = T.tra_langid
-            GROUP BY  T.tra_langid ) AS translatedToLangs
-            ON translatedToLangs.originalId = LG.lan_id
+            
+                SELECT originalLangId ,
+                GROUP_CONCAT(' |',transLang,' ',langCount) AS totalStats
+                FROM 
+                (
+                SELECT T.tra_langid, L2.lan_title AS transLang,
+                W.wor_langid AS originalLangId,
+                COUNT(T.tra_langid) AS langCount
+                FROM translations T 
+                JOIN words W ON W.wor_id = T.tra_wordid
+                JOIN languages L ON L.lan_id = W.wor_langid
+                JOIN languages L2 ON L2.lan_id =T.tra_langid
+                GROUP BY W.wor_langid, T.tra_langid
+                ) AS transPerOriginalLang 
+                GROUP BY originalLangId
 
-            GROUP BY LG.lan_id ) AS transtlPerLang ON transtlPerLang.lan_id = L.lan_id
+            )  AS transtlPerLang ON transtlPerLang.originalLangId = L.lan_id
             GROUP BY  W.wor_langid
             ORDER BY  COUNT(W.wor_id) DESC `;
 
