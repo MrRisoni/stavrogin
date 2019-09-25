@@ -186,23 +186,14 @@ module.exports =
                 ).then(results => {
                     let timesChecked = parseFloat(results[0].timesTested);
                     const currentAverage = parseFloat(results[0].avgDue);
-                    console.log('tims chcked + ' + timesChecked + ' cur avg' + currentAverage + ' new due ' + obj.due);
-                    const newAvg = parseFloat(obj.due);
-                    console.log('new ag in ' + newAvg);
+                    const showAgainInDays =  parseFloat(obj.due);
 
-                    console.log('nominator');
-                    console.log((newAvg + currentAverage ));
-
-
-                    console.log('denominator');
-                    console.log((timesChecked + 1 ));
                     timesChecked++;
 
-                    const showAgainInDays = Math.ceil((newAvg + currentAverage )/timesChecked);
-                    console.log('show in ' + showAgainInDays);
+                    const newAverage = (showAgainInDays + currentAverage )/timesChecked;
                     const newShowDay = moment().add(showAgainInDays, 'days');
 
-                    const sql = " UPDATE `words` SET `wor_checked` = CURRENT_DATE, `wor_times_tested` = '" + timesChecked +"', `wor_due` = '" + newShowDay.format('YYYY-MM-DD') + "' WHERE wor_id = '" + obj.wordId + "'";
+                    const sql = " UPDATE `words` SET `wor_avg_days_due` = '" + newAverage + "', `wor_checked` = CURRENT_DATE, `wor_times_tested` = '" + timesChecked +"', `wor_due` = '" + newShowDay.format('YYYY-MM-DD') + "' WHERE wor_id = '" + obj.wordId + "'";
                     self.models.dbObj.query(sql, {type: Sequelize.QueryTypes.UPDATE})
                         .then(foo => {
                             resolve();
