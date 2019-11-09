@@ -101,10 +101,9 @@ module.exports =
 
         getStatistics()
         {
-
             // multi line string in ``
             const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords ,  FORMAT(AVG(W.wor_avg_days_due),2) AS avgDue ,
-            transtlPerLang.totalStats ,wordsDue.dueCount
+            transtlPerLang.totalStats ,wordsDue.dueCount, levelStats.lvlsCount
             FROM words W
             JOIN languages L ON L.lan_id = W.wor_langid
             JOIN (
@@ -114,6 +113,16 @@ module.exports =
                 WHERE W.wor_due <= CURRENT_DATE
                 GROUP BY L.lan_id
             ) AS wordsDue ON wordsDue.dueLangId = L.lan_id
+            JOIN (
+                SELECT lan_id,  GROUP_CONCAT(' |',wor_lvl,' ',ttl) AS lvlsCount
+                FROM (
+                    SELECT L.lan_id,  W.wor_lvl, COUNT(W.wor_id) AS ttl
+                    FROM languages L JOIN words W ON W.wor_langid = L.lan_id
+                    GROUP BY L.lan_id,W.wor_lvl
+                    ORDER BY  COUNT(W.wor_id) DESC
+                ) AS lvlStatsLocal
+                GROUP BY lan_id
+            ) AS levelStats ON levelStats.lan_id = L.lan_id
             JOIN (
             
                 SELECT originalLangId ,
@@ -220,7 +229,8 @@ module.exports =
                 comment: obj.comment,
                 added: new Date(),
                 due: new Date(),
-                avgDue: 0
+                avgDue: 0,
+                lvl: obj.level
             })
                 .save().then(saved => {
 

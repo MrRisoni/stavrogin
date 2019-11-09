@@ -116,6 +116,10 @@ const wordsMdl = sequelize.define('words', {
         avgDue: { // the longer the avg Due the easier the word
             type: Sequelize.FLOAT,
             field: 'wor_avg_days_due'
+        },
+        lvl: {
+            type: Sequelize.CHAR,
+            field: 'wor_lvl'
         }
     },
     {
