@@ -103,7 +103,7 @@ module.exports =
         {
 
             // multi line string in ``
-            const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords , AVG(W.wor_avg_days_due) AS avgDue ,
+            const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords ,  FORMAT(AVG(W.wor_avg_days_due),2) AS avgDue ,
             transtlPerLang.totalStats ,wordsDue.dueCount
             FROM words W
             JOIN languages L ON L.lan_id = W.wor_langid
