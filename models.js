@@ -39,7 +39,7 @@ const langsMdl = sequelize.define('languages', {
         title: {
             type: Sequelize.CHAR,
             field: 'lan_title'
-        },foreign: {
+        }, foreign: {
             type: Sequelize.INTEGER,
             field: 'lan_foreign'
         }
@@ -67,7 +67,6 @@ const posMdl = sequelize.define('poses', {
         freezeTableName: true
     }
 );
-
 
 
 const wordsMdl = sequelize.define('words', {
@@ -147,6 +146,10 @@ const translationsMdl = sequelize.define('translations', {
         meaning: {
             type: Sequelize.CHAR,
             field: 'tra_meaning'
+        },
+        example: {
+            type: Sequelize.CHAR,
+            field: 'tra_example'
         }
     },
     {
@@ -154,8 +157,6 @@ const translationsMdl = sequelize.define('translations', {
         freezeTableName: true
     }
 );
-
-
 
 
 //wordsMdl.belongsTo(translationsMdl, {7foreignKey: 'tra_wordid', as: 'transtl'});

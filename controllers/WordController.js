@@ -237,7 +237,8 @@ module.exports =
                     self.models.translationsMdl.build({
                         langId: obj.transLangId,
                         wordId: saved.wordId,
-                        meaning: obj.meaning
+                        meaning: obj.meaning,
+                        example: obj.example
                     }).save();
             });
         }
