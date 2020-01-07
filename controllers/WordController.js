@@ -75,23 +75,31 @@ module.exports =
         }
 
 
-        getWordsDue(langId) {
+        getWordsDue(langId,sourceId) {
+            console.log(langId,sourceId)
             const self = this;
             // limit
             return new Promise((resolve, reject) => {
 
-                self.models.wordsMdl.findAll({
-                        where: {
-                            langId: langId,
-                            due: {
-                                [Sequelize.Op.lte]: moment().toDate()
-                            },
+                let whereOptions = {
+                    where: {
+                        langId: langId,
+                        due: {
+                            [Sequelize.Op.lte]: moment().toDate()
                         },
-                        order: [
-                            ['due', 'ASC'],
-                        ]
-                    }
-                ).then(results => {
+                    },
+                    order: [
+                        ['due', 'ASC'],
+                    ]
+                };
+
+                if (sourceId > 0) {
+                   Object.assign(whereOptions.where, {
+                        sourceId: sourceId
+                    });
+                }
+
+                self.models.wordsMdl.findAll(whereOptions).then(results => {
                     resolve(results);
                 }).catch(err => {
                     reject({errMsg: err, data: []});
@@ -158,6 +166,41 @@ module.exports =
             });
 
         }
+
+        getSourcesByLangId(langId) {
+            const self = this;
+            return new Promise((resolve, reject) => {
+                self.models.sourcesMdl.findAll({
+                        where: {
+                            langId: langId
+                        }
+                    }
+                ).then(results => {
+                    resolve(results);
+                });
+            });
+        }
+
+        getNumSourcesForAllLangs() {
+            const q = ` SELECT wor_langid AS langId,
+                            wor_source_id AS sourceId,
+                            COUNT(wor_id) AS total FROM words
+                            GROUP BY wor_source_id ,wor_langid
+                             ORDER BY wor_langid ASC`;
+
+            const self = this;
+            return new Promise((resolve, reject) => {
+
+                self.models.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
+                    .then(foo => {
+                        resolve(foo);
+                    }).catch(errSql => {
+                    reject({errMsg: errSql});
+                });
+            });
+
+        }
+
 
 
 
@@ -230,7 +273,8 @@ module.exports =
                 added: new Date(),
                 due: new Date(),
                 avgDue: 0,
-                lvl: obj.level
+                lvl: obj.level,
+                sourceId:obj.sourceId,
             })
                 .save().then(saved => {
 

@@ -80,6 +80,10 @@ const wordsMdl = sequelize.define('words', {
             type: Sequelize.INTEGER,
             field: 'wor_langid'
         },
+        sourceId: {
+            type: Sequelize.INTEGER,
+            field: 'wor_source_id'
+        },
         posId: {
             type: Sequelize.INTEGER,
             field: 'wor_posid'
@@ -159,6 +163,31 @@ const translationsMdl = sequelize.define('translations', {
 );
 
 
+
+
+const sourcesMdl = sequelize.define('sources', {
+        transId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'src_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        langId: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'src_langid'
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'src_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
 //wordsMdl.belongsTo(translationsMdl, {7foreignKey: 'tra_wordid', as: 'transtl'});
 
 
@@ -167,7 +196,8 @@ module.exports = {
     langsMdl,
     wordsMdl,
     posMdl,
-    translationsMdl
+    translationsMdl,
+    sourcesMdl
 };
 
 
