@@ -107,10 +107,33 @@ module.exports =
             });
         }
 
-        getStatistics()
-        {
+        getSetsAndStatistics() {
+            return new Promise((resolve, reject) => {
+                Promise.all([this.getStatistics(), this.getSources()]).then(function (values) {
+
+
+                    var fullResult = [];
+                    values[0].forEach(function (rs) {
+                        var cp = Object.assign({}, rs);
+                        var setsArr = [];
+                        values[1].forEach(function (src) {
+                            if (src.langId == rs.lanId) {
+                                setsArr.push(src);
+                            }
+                        });
+
+                        cp['sets'] = setsArr;
+                        fullResult.push(cp);
+                    })
+
+                    resolve(fullResult);
+                });
+            });
+        }
+
+        getStatistics() {
             // multi line string in ``
-            const q = `SELECT   L.lan_title AS lang, COUNT(W.wor_id) AS totalWords ,  FORMAT(AVG(W.wor_avg_days_due),2) AS avgDue ,
+            const q = `SELECT   L.lan_id AS lanId, L.lan_title AS lang, COUNT(W.wor_id) AS totalWords ,  FORMAT(AVG(W.wor_avg_days_due),2) AS avgDue ,
             transtlPerLang.totalStats ,wordsDue.dueCount, levelStats.lvlsCount
             FROM words W
             JOIN languages L ON L.lan_id = W.wor_langid
@@ -155,8 +178,6 @@ module.exports =
 
             const self = this;
             return new Promise((resolve, reject) => {
-
-
                 self.models.dbObj.query(q, {type: Sequelize.QueryTypes.SELECT})
                     .then(foo => {
                         resolve(foo);
@@ -164,7 +185,6 @@ module.exports =
                     reject({errMsg: errSql});
                 });
             });
-
         }
 
         getSourcesByLangId(langId) {
@@ -181,10 +201,21 @@ module.exports =
             });
         }
 
+        getSources() {
+            const self = this;
+            return new Promise((resolve, reject) => {
+                self.models.sourcesMdl.findAll().then(results => {
+                    resolve(results);
+                });
+            });
+        }
+
         getNumSourcesForAllLangs() {
             const q = ` SELECT wor_langid AS langId,
                             wor_source_id AS sourceId,
+                            lan_title AS langCode,
                             COUNT(wor_id) AS total FROM words
+                            JOIN  languages ON lan_id = wor_langid
                             GROUP BY wor_source_id ,wor_langid
                              ORDER BY wor_langid ASC`;
 
@@ -200,9 +231,6 @@ module.exports =
             });
 
         }
-
-
-
 
 
         getTranstl(langId) {

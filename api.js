@@ -89,16 +89,6 @@ app.get('/api/sources/:langId', (req, res) => {
 });
 
 
-app.get('/api/all_sources', (req, res) => {
-
-    wCtrl.getNumSourcesForAllLangs().then(data => {
-        res.send(data);
-
-    }).catch(err => {
-        console.log(err);
-    });
-});
-
 
 app.post('/api/update_due', (req, res) => {
     wCtrl.updateWord(req.body).then(rsp => {
@@ -116,11 +106,12 @@ app.post('/api/newword', (req, res) => {
 });
 
 app.get('/api/statistics', (req,res) => {
-   wCtrl.getStatistics().then(rsp => {
+  wCtrl.getSetsAndStatistics().then(rsp => {
        res.send(rsp)
    }).catch(err => {
        res.sendStatus(500);
    });
+
 });
 
 http.listen(port, (req, res) => {
