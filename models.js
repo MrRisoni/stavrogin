@@ -166,7 +166,7 @@ const translationsMdl = sequelize.define('translations', {
 
 
 const sourcesMdl = sequelize.define('sources', {
-        transId: {
+        setId: {
             type: Sequelize.INTEGER.UNSIGNED,
             field: 'src_id',
             autoIncrement: true,
