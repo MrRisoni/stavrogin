@@ -109,7 +109,7 @@ module.exports =
 
         getSetsAndStatistics() {
             return new Promise((resolve, reject) => {
-                Promise.all([this.getStatistics(), this.getSources()]).then(function (values) {
+                Promise.all([this.getStatistics(), this.getNumSourcesForAllLangs()]).then(function (values) {
 
 
                     var fullResult = [];
@@ -117,7 +117,7 @@ module.exports =
                         var cp = Object.assign({}, rs);
                         var setsArr = [];
                         values[1].forEach(function (src) {
-                            if (src.langId == rs.lanId) {
+                            if (src.sourceLangId == rs.lanId) {
                                 setsArr.push(src);
                             }
                         });
@@ -201,23 +201,12 @@ module.exports =
             });
         }
 
-        getSources() {
-            const self = this;
-            return new Promise((resolve, reject) => {
-                self.models.sourcesMdl.findAll().then(results => {
-                    resolve(results);
-                });
-            });
-        }
 
         getNumSourcesForAllLangs() {
-            const q = ` SELECT wor_langid AS langId,
-                            wor_source_id AS sourceId,
-                            lan_title AS langCode,
-                            COUNT(wor_id) AS total FROM words
-                            JOIN  languages ON lan_id = wor_langid
-                            GROUP BY wor_source_id ,wor_langid
-                             ORDER BY wor_langid ASC`;
+            const q = ` SELECT W.wor_langid AS sourceLangId , src_title , COUNT(W.wor_id) AS ttlSrc 
+                    FROM  words W 
+                    JOIN sources S  ON W.wor_source_id = src_id
+                    GROUP BY  W.wor_langid, S.src_id`;
 
             const self = this;
             return new Promise((resolve, reject) => {
