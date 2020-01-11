@@ -89,6 +89,16 @@ app.get('/api/sources/:langId', (req, res) => {
 });
 
 
+app.get('/api/sources_all', (req, res) => {
+
+    wCtrl.getNumSourcesForAllLangs().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
 
 app.post('/api/update_due', (req, res) => {
     wCtrl.updateWord(req.body).then(rsp => {

@@ -203,7 +203,7 @@ module.exports =
 
 
         getNumSourcesForAllLangs() {
-            const q = ` SELECT W.wor_langid AS sourceLangId , src_title , COUNT(W.wor_id) AS ttlSrc 
+            const q = ` SELECT W.wor_langid AS sourceLangId , src_title , COUNT(W.wor_id) AS ttlSrc ,S.src_id AS srcId
                     FROM  words W 
                     JOIN sources S  ON W.wor_source_id = src_id
                     GROUP BY  W.wor_langid, S.src_id`;
