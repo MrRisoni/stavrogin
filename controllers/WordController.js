@@ -95,6 +95,18 @@ module.exports =
             });
         }
 
+        getFormats()
+        {
+            const self = this;
+            return new Promise((resolve, reject) => {
+                self.models.formatsMdl.findAll({
+                    }
+                ).then(results => {
+                    resolve(results);
+                });
+            });
+
+        }
 
         getWordsDue(langId,sourceId) {
             console.log(langId,sourceId)

@@ -46,6 +46,18 @@ app.get('/api/langsall', (req, res) => {
     });
 });
 
+
+app.get('/api/formats', (req, res) => {
+    wCtrl.getFormats().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
+
 app.get('/api/pos', (req, res) => {
     wCtrl.getPOS().then(data => {
         res.send(data);
