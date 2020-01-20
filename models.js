@@ -188,6 +188,77 @@ const sourcesMdl = sequelize.define('sources', {
 );
 
 
+
+const authorsMdl = sequelize.define('authors', {
+        id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'auth_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        name: {
+            type: Sequelize.CHAR,
+            field: 'auth_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const formatsMdl = sequelize.define('formats', {
+        Id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'frm_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'frm_title'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+const booksMdl = sequelize.define('books', {
+        Id: {
+            type: Sequelize.INTEGER.UNSIGNED,
+            field: 'bok_id',
+            autoIncrement: true,
+            primaryKey: true,
+        },
+        title: {
+            type: Sequelize.CHAR,
+            field: 'bok_title'
+        },
+        currentPage: {
+            type: Sequelize.INTEGER,
+            field: 'bok_current_page'
+        },
+        pagesTotal: {
+            type: Sequelize.INTEGER,
+            field: 'bok_pages'
+        }
+    },
+    {
+        timestamps: false,
+        freezeTableName: true
+    }
+);
+
+
+
+
+booksMdl.belongsTo(langsMdl, {foreignKey: 'bok_lang_id', as: 'lang'});
+booksMdl.belongsTo(formatsMdl, {foreignKey: 'bok_format_id', as: 'form'});
+booksMdl.belongsTo(authorsMdl, {foreignKey: 'bok_author_id', as: 'auth'});
 //wordsMdl.belongsTo(translationsMdl, {7foreignKey: 'tra_wordid', as: 'transtl'});
 
 
@@ -197,7 +268,9 @@ module.exports = {
     wordsMdl,
     posMdl,
     translationsMdl,
-    sourcesMdl
+    sourcesMdl,
+    booksMdl,
+    formatsMdl
 };
 
 

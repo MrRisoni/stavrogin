@@ -65,6 +65,15 @@ app.get('/api/wordsdue/:langId/:sourceId', (req, res) => {
     });
 });
 
+app.get('/api/books_wip', (req, res) => {
+
+    wCtrl.getWIPBooks().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
 
 
 app.get('/api/transtl/:langId', (req, res) => {
