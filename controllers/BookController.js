@@ -26,7 +26,7 @@ module.exports =
                         },
                     },
                     order: [
-                        ['currentPage', 'DESC'],
+                        ['updatedAt', 'DESC'],
                     ],
                 }).then(results => {
                     resolve(results);
