@@ -7,6 +7,7 @@ const cors = require('cors');
 const Sequelize = require('sequelize');
 
 const WordController = require('./controllers/WordController');
+const BookController = require('./controllers/BookController');
 
 
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.use(cors());
 const dbModels = require('./models');
 
 const wCtrl = new WordController(dbModels);
+const bokCtrl = new WordController(dbModels);
 
 
 app.get('/api/words/:langId', (req, res) => {
@@ -48,7 +50,17 @@ app.get('/api/langsall', (req, res) => {
 
 
 app.get('/api/formats', (req, res) => {
-    wCtrl.getFormats().then(data => {
+    bokCtrl.getFormats().then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
+app.get('/api/authors', (req, res) => {
+    bokCtrl.getAuthors().then(data => {
         res.send(data);
 
     }).catch(err => {
@@ -79,7 +91,7 @@ app.get('/api/wordsdue/:langId/:sourceId', (req, res) => {
 
 app.get('/api/books_wip', (req, res) => {
 
-    wCtrl.getWIPBooks().then(data => {
+    bokCtrl.getWIPBooks().then(data => {
         res.send(data);
 
     }).catch(err => {

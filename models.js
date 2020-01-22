@@ -245,6 +245,14 @@ const booksMdl = sequelize.define('books', {
         pagesTotal: {
             type: Sequelize.INTEGER,
             field: 'bok_pages'
+        },
+        code: {
+            type: Sequelize.CHAR,
+            field: 'bok_code'
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            field: 'bok_updated_at'
         }
     },
     {
@@ -270,7 +278,8 @@ module.exports = {
     translationsMdl,
     sourcesMdl,
     booksMdl,
-    formatsMdl
+    formatsMdl,
+    authorsMdl
 };
 
 
