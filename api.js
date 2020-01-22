@@ -39,6 +39,16 @@ app.get('/api/langs', (req, res) => {
     });
 });
 
+app.get('/api/reading', (req, res) => {
+   Promise.all([bokCtrl.getWIPBooks(),wCtrl.getAllLangs(),bokCtrl.getFormats(),bokCtrl.getAuthors()]).then(data => {
+        res.send(data);
+
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+
 app.get('/api/langsall', (req, res) => {
     wCtrl.getAllLangs().then(data => {
         res.send(data);

@@ -25,9 +25,9 @@ module.exports =
                             [Sequelize.Op.lt]: Sequelize.col('bok_pages')
                         },
                     },
-                    currentPage: [
-                        ['due', 'DESC'],
-                    ]
+                    order: [
+                        ['currentPage', 'DESC'],
+                    ],
                 }).then(results => {
                     resolve(results);
                 }).catch(err => {
@@ -56,6 +56,9 @@ module.exports =
             const self = this;
             return new Promise((resolve, reject) => {
                 self.models.authorsMdl.findAll({
+                    order: [
+                        ['name', 'ASC'],
+                    ],
                     }
                 ).then(results => {
                     resolve(results);
