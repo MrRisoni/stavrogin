@@ -16,7 +16,7 @@ app.use(cors());
 const dbModels = require('./models');
 
 const wCtrl = new WordController(dbModels);
-const bokCtrl = new WordController(dbModels);
+const bokCtrl = new BookController(dbModels);
 
 
 app.get('/api/words/:langId', (req, res) => {

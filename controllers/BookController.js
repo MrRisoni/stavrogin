@@ -21,7 +21,8 @@ module.exports =
                 self.models.booksMdl.findAll({
                     where: {
                         currentPage: {
-                            [Sequelize.Op.gt]: 0
+                            [Sequelize.Op.gt]: 0,
+                            [Sequelize.Op.lt]: Sequelize.col('bok_pages')
                         },
                     },
                     currentPage: [
