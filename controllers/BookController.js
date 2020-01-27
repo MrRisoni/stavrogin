@@ -12,8 +12,6 @@ module.exports =
 
         }
 
-
-
         getWIPBooks(filters = {}) {
             const self = this;
             return new Promise((resolve, reject) => {
@@ -28,6 +26,23 @@ module.exports =
                     order: [
                         ['updatedAt', 'DESC'],
                     ],
+                    include: [
+                        {
+                            model: self.models.langsMdl,
+                            as: 'lang',
+                            required: false
+                        },
+                        {
+                            model: self.models.formatsMdl,
+                            as: 'form',
+                            required: false
+                        },
+                        {
+                            model: self.models.authorsMdl,
+                            as: 'auth',
+                            required: false
+                        },
+                    ]
                 }).then(results => {
                     resolve(results);
                 }).catch(err => {
@@ -66,5 +81,13 @@ module.exports =
             });
         }
 
+
+        saveProgress(data){
+            const self = this;
+            console.log(data);
+            let rawSql = "UPDATE `books` SET `bok_current_page`='" + data.newPage + "',`bok_updated_at`=CURRENT_DATE WHERE    `bok_id`= '" + data.bookId + "' ";
+
+            self.models.dbObj.query(rawSql, {type: Sequelize.QueryTypes.UPDATE});
+        }
 
     }

@@ -151,10 +151,16 @@ app.post('/api/update_due', (req, res) => {
     });
 });
 
-
 app.post('/api/newword', (req, res) => {
 
     wCtrl.saveWord(req.body);
+    res.sendStatus(200);
+});
+
+
+app.post('/api/save_progress', (req, res) => {
+
+    bokCtrl.saveProgress(req.body);
     res.sendStatus(200);
 });
 
