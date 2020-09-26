@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2020 at 07:53 AM
+-- Generation Time: Sep 26, 2020 at 02:29 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.4.10
 
@@ -47,6 +47,57 @@ INSERT INTO `languages` (`lan_id`, `lan_title`, `lan_foreign`) VALUES
 (21, 'Dansk', 1),
 (31, 'Svenska', 1),
 (41, 'Latin', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `moods`
+--
+
+CREATE TABLE `moods` (
+  `id` int UNSIGNED NOT NULL,
+  `language_id` tinyint UNSIGNED NOT NULL,
+  `title` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `noun_cases`
+--
+
+CREATE TABLE `noun_cases` (
+  `id` int UNSIGNED NOT NULL,
+  `language_id` tinyint UNSIGNED NOT NULL,
+  `title` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `noun_declensions`
+--
+
+CREATE TABLE `noun_declensions` (
+  `id` int UNSIGNED NOT NULL,
+  `word_id` int UNSIGNED NOT NULL,
+  `case_id` int UNSIGNED NOT NULL,
+  `title` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `persons`
+--
+
+CREATE TABLE `persons` (
+  `id` int UNSIGNED NOT NULL,
+  `language_id` tinyint UNSIGNED NOT NULL,
+  `title` varchar(20) NOT NULL,
+  `singular` tinyint UNSIGNED NOT NULL,
+  `show_order` tinyint UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -95,6 +146,18 @@ INSERT INTO `sources` (`src_id`, `src_langid`, `src_title`) VALUES
 (41, 31, 'From English to Swedish'),
 (31, 31, 'Kurzkrimis'),
 (21, 31, 'Välkomma A1-A2 Klett');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tenses`
+--
+
+CREATE TABLE `tenses` (
+  `id` int UNSIGNED NOT NULL,
+  `language_id` tinyint UNSIGNED NOT NULL,
+  `title` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -1066,6 +1129,34 @@ INSERT INTO `translations` (`tra_id`, `tra_wordid`, `tra_langid`, `tra_meaning`,
 (9461, 11081, 2, 'go', '', NULL),
 (9471, 11091, 2, 'go', '', NULL),
 (9481, 11101, 5, 'wohin zu', '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verb_conjugation`
+--
+
+CREATE TABLE `verb_conjugation` (
+  `id` int UNSIGNED NOT NULL,
+  `word_id` int UNSIGNED NOT NULL,
+  `conjugated` varchar(80) NOT NULL,
+  `person_id` int UNSIGNED NOT NULL,
+  `mood_id` int UNSIGNED NOT NULL,
+  `voice_id` int UNSIGNED NOT NULL,
+  `tense_id` int UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voices`
+--
+
+CREATE TABLE `voices` (
+  `id` int UNSIGNED NOT NULL,
+  `language_id` tinyint UNSIGNED NOT NULL,
+  `title` varchar(55) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -2063,6 +2154,35 @@ ALTER TABLE `languages`
   ADD UNIQUE KEY `lan_title` (`lan_title`);
 
 --
+-- Indexes for table `moods`
+--
+ALTER TABLE `moods`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `language_id` (`language_id`);
+
+--
+-- Indexes for table `noun_cases`
+--
+ALTER TABLE `noun_cases`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `language_id` (`language_id`);
+
+--
+-- Indexes for table `noun_declensions`
+--
+ALTER TABLE `noun_declensions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `word_id` (`word_id`),
+  ADD KEY `case_id` (`case_id`);
+
+--
+-- Indexes for table `persons`
+--
+ALTER TABLE `persons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `language_id` (`language_id`);
+
+--
 -- Indexes for table `poses`
 --
 ALTER TABLE `poses`
@@ -2077,6 +2197,13 @@ ALTER TABLE `sources`
   ADD UNIQUE KEY `src_langid` (`src_langid`,`src_title`);
 
 --
+-- Indexes for table `tenses`
+--
+ALTER TABLE `tenses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `language_id` (`language_id`);
+
+--
 -- Indexes for table `translations`
 --
 ALTER TABLE `translations`
@@ -2084,6 +2211,24 @@ ALTER TABLE `translations`
   ADD UNIQUE KEY `uniq_combo` (`tra_wordid`,`tra_meaning`,`tra_langid`),
   ADD KEY `tra_wordid` (`tra_wordid`),
   ADD KEY `tra_langid` (`tra_langid`);
+
+--
+-- Indexes for table `verb_conjugation`
+--
+ALTER TABLE `verb_conjugation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `word_id` (`word_id`),
+  ADD KEY `person_id` (`person_id`),
+  ADD KEY `mood_id` (`mood_id`),
+  ADD KEY `voice_id` (`voice_id`),
+  ADD KEY `tense_id` (`tense_id`);
+
+--
+-- Indexes for table `voices`
+--
+ALTER TABLE `voices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `language_id` (`language_id`);
 
 --
 -- Indexes for table `words`
@@ -2105,6 +2250,30 @@ ALTER TABLE `languages`
   MODIFY `lan_id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
+-- AUTO_INCREMENT for table `moods`
+--
+ALTER TABLE `moods`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `noun_cases`
+--
+ALTER TABLE `noun_cases`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `noun_declensions`
+--
+ALTER TABLE `noun_declensions`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `persons`
+--
+ALTER TABLE `persons`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `poses`
 --
 ALTER TABLE `poses`
@@ -2117,10 +2286,28 @@ ALTER TABLE `sources`
   MODIFY `src_id` tinyint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
+-- AUTO_INCREMENT for table `tenses`
+--
+ALTER TABLE `tenses`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
   MODIFY `tra_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9482;
+
+--
+-- AUTO_INCREMENT for table `verb_conjugation`
+--
+ALTER TABLE `verb_conjugation`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `voices`
+--
+ALTER TABLE `voices`
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `words`
@@ -2133,10 +2320,35 @@ ALTER TABLE `words`
 --
 
 --
+-- Constraints for table `noun_cases`
+--
+ALTER TABLE `noun_cases`
+  ADD CONSTRAINT `noun_cases_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `languages` (`lan_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `noun_declensions`
+--
+ALTER TABLE `noun_declensions`
+  ADD CONSTRAINT `noun_declensions_ibfk_1` FOREIGN KEY (`word_id`) REFERENCES `words` (`wor_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `noun_declensions_ibfk_2` FOREIGN KEY (`case_id`) REFERENCES `noun_cases` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `persons`
+--
+ALTER TABLE `persons`
+  ADD CONSTRAINT `persons_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `languages` (`lan_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `sources`
 --
 ALTER TABLE `sources`
   ADD CONSTRAINT `sources_ibfk_1` FOREIGN KEY (`src_langid`) REFERENCES `languages` (`lan_id`);
+
+--
+-- Constraints for table `tenses`
+--
+ALTER TABLE `tenses`
+  ADD CONSTRAINT `tenses_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `languages` (`lan_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `translations`
@@ -2144,6 +2356,22 @@ ALTER TABLE `sources`
 ALTER TABLE `translations`
   ADD CONSTRAINT `translations_ibfk_1` FOREIGN KEY (`tra_langid`) REFERENCES `languages` (`lan_id`),
   ADD CONSTRAINT `translations_ibfk_2` FOREIGN KEY (`tra_wordid`) REFERENCES `words` (`wor_id`);
+
+--
+-- Constraints for table `verb_conjugation`
+--
+ALTER TABLE `verb_conjugation`
+  ADD CONSTRAINT `verb_conjugation_ibfk_1` FOREIGN KEY (`mood_id`) REFERENCES `moods` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `verb_conjugation_ibfk_2` FOREIGN KEY (`person_id`) REFERENCES `persons` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `verb_conjugation_ibfk_3` FOREIGN KEY (`tense_id`) REFERENCES `tenses` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `verb_conjugation_ibfk_4` FOREIGN KEY (`voice_id`) REFERENCES `voices` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `verb_conjugation_ibfk_5` FOREIGN KEY (`word_id`) REFERENCES `words` (`wor_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `voices`
+--
+ALTER TABLE `voices`
+  ADD CONSTRAINT `voices_ibfk_1` FOREIGN KEY (`language_id`) REFERENCES `languages` (`lan_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `words`
