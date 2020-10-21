@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 26, 2020 at 02:29 PM
+-- Generation Time: Oct 21, 2020 at 03:15 PM
 -- Server version: 8.0.21
--- PHP Version: 7.4.10
+-- PHP Version: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -168,9 +168,9 @@ CREATE TABLE `tenses` (
 CREATE TABLE `translations` (
   `tra_id` int UNSIGNED NOT NULL,
   `tra_wordid` int UNSIGNED NOT NULL,
-  `tra_langid` tinyint UNSIGNED NOT NULL DEFAULT '1',
+  `tra_langid` tinyint UNSIGNED DEFAULT '1',
   `tra_meaning` varchar(45) NOT NULL,
-  `tra_example` varchar(255) NOT NULL,
+  `tra_example` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `tra_image_url` varchar(95) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1128,7 +1128,27 @@ INSERT INTO `translations` (`tra_id`, `tra_wordid`, `tra_langid`, `tra_meaning`,
 (9451, 11071, 2, 'wait', '', NULL),
 (9461, 11081, 2, 'go', '', NULL),
 (9471, 11091, 2, 'go', '', NULL),
-(9481, 11101, 5, 'wohin zu', '', NULL);
+(9481, 11101, 5, 'wohin zu', '', NULL),
+(9482, 11107, 1, 'αίμα', NULL, NULL),
+(9484, 11109, 1, 'study', NULL, NULL),
+(9485, 11110, 1, 'κουζίνα', NULL, NULL),
+(9486, 11111, 1, 'έμπορος', NULL, NULL),
+(9487, 11112, 1, 'λέει', NULL, NULL),
+(9488, 11113, 1, 'μάγειρας', NULL, NULL),
+(9489, 11114, 1, 'επίσης', NULL, NULL),
+(9490, 11115, 1, 'κηπος', NULL, NULL),
+(9491, 11116, 1, 'looks around', NULL, NULL),
+(9492, 11117, 1, 'enters', NULL, NULL),
+(9493, 11118, 1, 'angry', NULL, NULL),
+(9494, 11119, 1, 'λιοντάρι', NULL, NULL),
+(9495, 11120, 1, 'δοκιμάζω', NULL, NULL),
+(9496, 11121, 1, 'praise', NULL, NULL),
+(9497, 11122, 1, 'παγώνι', NULL, NULL),
+(9498, 11123, 1, 'τραπεζίτς', NULL, NULL),
+(9499, 11124, 1, 'βλέπω', NULL, NULL),
+(9500, 11125, 1, 'ιδού', NULL, NULL),
+(9501, 11126, 1, 'κουρέας', NULL, NULL),
+(9502, 11127, 1, 'ρέει', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2140,7 +2160,27 @@ INSERT INTO `words` (`wor_id`, `wor_langid`, `wor_word`, `wor_pronounce`, `wor_a
 (11071, 4, 'ждать', '', '2020-03-04', '', '2020-03-04', 0, '', NULL, 2, 0, 'A', 11),
 (11081, 4, 'ехать', '', '2020-03-04', '', '2020-03-04', 0, '', NULL, 2, 0, 'A', 11),
 (11091, 4, 'идти', '', '2020-03-04', '', '2020-03-04', 0, '', NULL, 2, 0, 'A', 11),
-(11101, 4, 'куда', '', '2020-03-04', '', '2020-03-04', 0, '', NULL, 1, 0, 'A', 11);
+(11101, 4, 'куда', '', '2020-03-04', '', '2020-03-04', 0, '', NULL, 1, 0, 'A', 11),
+(11107, 41, 'sanguis', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11109, 41, 'tablinō', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11110, 41, 'culīnā', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11111, 41, 'mercatores', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11112, 41, 'dixit', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11113, 41, 'coquus', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11114, 41, 'quoque', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11115, 41, 'horto', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11116, 41, 'circumspectat', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11117, 41, 'intrat', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11118, 41, 'īrātus', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11119, 41, 'lēo', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11120, 41, 'gustat', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11121, 41, 'laudat', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11122, 41, 'pavōnem', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11123, 41, 'argentarius', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11124, 41, 'videt', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11125, 41, 'ecce', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11126, 41, 'tōnsor', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1),
+(11127, 41, 'fluit', NULL, '2020-10-21', NULL, NULL, 0, NULL, NULL, 1, 0, 'X', 1);
 
 --
 -- Indexes for dumped tables
@@ -2295,7 +2335,7 @@ ALTER TABLE `tenses`
 -- AUTO_INCREMENT for table `translations`
 --
 ALTER TABLE `translations`
-  MODIFY `tra_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9482;
+  MODIFY `tra_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9503;
 
 --
 -- AUTO_INCREMENT for table `verb_conjugation`
@@ -2313,7 +2353,7 @@ ALTER TABLE `voices`
 -- AUTO_INCREMENT for table `words`
 --
 ALTER TABLE `words`
-  MODIFY `wor_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11102;
+  MODIFY `wor_id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11128;
 
 --
 -- Constraints for dumped tables
